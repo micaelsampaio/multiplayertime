@@ -1,0 +1,40 @@
+<md-content class="container">
+	<md-card >
+		<div layout="row" layout-padding>
+			<h2 class="md-headline" flex>{{title}}</h2>
+		</div>
+
+		<md-card-content layout="column">
+
+			<div layout-gt-sm="row">
+				<md-input-container class="md-block" flex-gt-sm>
+					<label>Category</label>
+					<input ng-model="category.name">
+				</md-input-container>
+
+				<md-input-container class="md-block" flex-gt-sm>
+					<label>Description </label>
+					<input ng-model="category.description">
+				</md-input-container>
+			</div>
+
+			<div layout="row" layout-xs="column">
+				<md-input-container class="md-block" flex="50" >
+					<label>Color</label>
+					<input ng-model="category.color" required>
+				</md-input-container>
+
+				<div style="width: 50px; height: 50px; background:{{category.color}}; margin-left: 10px;">
+
+				</div>
+				<div flex layout-align="center" style="margin-top: 15px; margin-left: 10px; color:{{category.color}}">
+					<h2 class="md-headline" flex>{{category.name}}</h2>
+				</div>
+			</div>
+			<div layout-align="end center" >
+				<md-button class="md-raised md-primary" ng-click="save()">{{btText}}</md-button>
+			</div>
+
+		</md-card-content>
+	</md-card>
+</md-content>

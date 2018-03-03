@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="multiplayertime">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<title>Multiplayer Time</title>
+	<link rel="stylesheet" type="text/css" href="/css/index.css">
+</head>
+<body ng-controller="IndexController" ng-cloak>
+	
+	<div ng-include="'/header.html'" class="header"></div>
+
+	<md-content layout-fill layout="column" ng-cloak class="content">
+		<!-- -->
+
+		<div id="intro" layout-fill style="position: relative; overflow: hidden;">
+			<canvas id="game" style="position: absolute; top:0px; left: 0px;"></canvas>
+		</div>
+		
+
+		<div>
+			<div layout-align="center center" layout="row" style="margin-top: 20px;">
+				<div layout-padding class="md-display-2">New Games</div>
+			</div>
+			<div layout-gt-sm="row" layout="column" layout-padding>
+				<div flex="20" hide show-gt-sm class="newGamesIcon">
+				</div>
+				<div flex ng-repeat="game in gamesList">
+					<md-card class="md-card-game">
+						<a href="/game/{{game.route}}">
+							<div class="image" style=" background: url('{{game.card_image}}') center;">
+								<img src="{{game.logo}}" class="logo">
+
+							</div>
+						</a>
+						<md-card-title>
+							<md-card-title-text>
+								<span class="md-headline" style="color:{{game.color}}">{{game.name}}</span>
+								<div layout="row" layout-align="center center">
+									<span class="md-subhead smallines" flex><i class="material-icons" style="display: inline-flex;
+										vertical-align: top;">group</i> {{game.players}} Players</span>
+										<md-button class="md-raised md-primary" href="/game/{{game.route}}">Play</md-button>
+									</div>
+
+								</md-card-title-text>
+							</md-card-title>
+						</md-card>
+				</div> 
+			</div>
+			<div layout="row" layout-align="center center">
+				<md-button href="/games" hide-gt-sm style="font-weight: bold;">
+					MORE GAMES
+				</md-button>
+			</div>
+			<div ng-include="'/footer.html'"></div>
+		</div>
+
+	</md-content>
+
+	<script type="text/javascript" src="/scripts/cookies.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-aria.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-messages.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+
+
+	<script src="/scripts/multiplayertime_app.js"></script>
+	<script src="/scripts/controllers/index_controller.js"></script>
+	<script src="/scripts/controllers/header_controller.js"></script>
+
+	<script src="/scripts/engine.js"></script>
+	<script>
+		var game = new Engine("game", 1280, 800, {resize : false});
+		var aspect = 1280 / 800;
+
+		game.loadImage("panel","/images/intro/panel.png");
+		game.loadImage("tree","/images/intro/tree.png");
+		game.loadImage("bush1","/images/intro/bush1.png");
+		game.loadImage("police","/images/intro/police.png");
+		game.loadImage("police_center","/images/intro/police_center.png");
+		game.loadImage("police_unicorn","/images/intro/police_unicorn.png");
+		game.loadImage("unicorn_eat","/images/intro/unicorn_eat.png");
+
+		game.load(OnLoading);
+
+		var bg;
+		var tree1;
+		var tree2;
+		var police;
+		var policeUnicorn;
+		var unicornEat;
+		var unicornEat2;
+		var unicornEat3;
+
+		var username = getCookie("user").toUpperCase();
+
+		var unicornSpeed = 100;
+
+		function OnLoading(){
+			bg = new game.Image(0,0, game.width, game.height, game.getImage("panel"));
+			tree1 = new game.Image(80, 70, 500, 500, game.getImage("tree"));
+			tree2 = new game.Image(-50, 200, 300, 300, game.getImage("tree"));
+
+			police = new game.Sprite(450, 500, 80, 80, game.getImage("police_center"), 3, 1);
+			police.addAnimation("idle", [0,0,0,0,0,1,2,2,2,2,2], 0.2, true);
+			
+			policeUnicorn = new game.Sprite(0, 410, 60, 60, game.getImage("police_unicorn"), 4, 1);
+			policeUnicorn.addAnimation("run", [0,1,2,3], 0.1, true);
+
+			unicornEat = new game.Sprite(100, 445, 55, 55, game.getImage("unicorn_eat"), 4, 1);
+			unicornEat.addAnimation("eat", [0,1,2,3,3,3,3,3,3,3,3,2,1,0,0,0,0,0], 0.1, true);
+
+			unicornEat2 = new game.Sprite(840, 470, 65, 65, game.getImage("unicorn_eat"), 4, 1);
+			unicornEat2.scale = -1;
+			unicornEat2.addAnimation("eat", [0,0,0,0,0,0,1,2,3,3,3,3,3,3,3,3,2,1], 0.1, true);
+
+			unicornEat3 = new game.Sprite(510, 505, 80, 80, game.getImage("unicorn_eat"), 4, 1);
+			unicornEat3.addAnimation("eat", [0,0,0,0,1,2,3,3,3,3,3,3,3,3,2,1,0,0], 0.1, true);
+
+			game.start(update);
+		}
+
+		function update(){
+
+			policeUnicorn.x += game.deltaTime * unicornSpeed;
+			if(policeUnicorn.x > game.width){
+				policeUnicorn.x = -policeUnicorn.width * 2;
+			}
+
+			bg.draw(); 
+			policeUnicorn.draw();
+
+			tree2.draw();
+			tree1.draw();
+
+			unicornEat.draw();
+			unicornEat2.draw();
+			unicornEat3.draw();
+
+			police.draw();
+			
+		}
+		window.onload  = function(event) {
+			resize();
+		};
+		window.onresize = function(event) {
+			resize();
+		};
+
+		function resize(){
+			var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+			var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+			var nH;
+			var nW;
+
+			if((aspect*h) >= w){
+				nH = h;
+				nW = aspect*h;
+			}else{
+				nH = w / aspect;
+				nW = w;
+			}
+
+			game.canvas.style.left = -(Math.abs(w-nW) / 2) + "px"; 
+			game.canvas.style.top = -(Math.abs(h-nH) / 2) + "px";
+			game.canvas.style.width = nW + "px";
+			game.canvas.style.height = nH + "px";
+		}
+	</script>
+</body>
+</html>

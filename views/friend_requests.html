@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="multiplayertime">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<title>Multiplayer Time</title>
+	<link rel="stylesheet" type="text/css" href="/css/index.css">
+</head>
+<body ng-controller="FriendsController">
+
+	<div ng-include="'/header.html'" class="header"></div>
+
+	<md-content layout-fill layout="column" ng-cloak class="content">
+
+		<div layout-fill>
+
+			<div layout-align="center top" layout="row" style="margin-top: 20px;" layout-padding>
+				<i class="material-icons" style="margin-top: 28px;">search</i>
+				<form ng-submit="$event.preventDefault()" flex-gt-sm="50" flex="100">
+
+					<md-autocomplete flex
+					md-input-name="autocompleteField"
+					md-input-minlength="1"
+					md-input-maxlength="30"
+					ng-disabled="false"
+					md-no-cache="false"
+					md-selected-item="selectedItem"
+					md-search-text-change="querySearch(searchText)"
+					md-search-text="searchText"
+					md-selected-item-change="selectedItemChange(item)"
+					md-items="item in data"
+					md-item-text="item.username"
+					md-min-length="1"
+					md-floating-label="Search Username">
+					<md-item-template>
+						<div layout-align="left center" layout="row">
+							<img src="/uploads/{{item.avatar}}" height="30">
+							<span style="margin-left: 20px;">{{item.username}}</span>
+						</div>
+					</md-item-template>
+					<md-not-found>
+						No Users matching "{{searchText}}" were found.
+					</md-not-found>
+				</md-autocomplete>
+
+				
+			</form>
+		</div>
+
+		<div layout-align="center center" layout="column" layout-fill ng-if="friends.length==0 && friendsSent.length==0" >
+			<div layout-padding class="md-display-2" >You have no Friend Requests</div>
+			<img src="/images/cry.png" style="max-height: 400px;">
+		</div>
+
+		<div ng-if="friends.length>0">
+			<div layout-align="center center" layout="row" style="margin-top: 20px;">
+				<div layout-padding class="md-display-2">Friend Request ({{friends.length}})</div>
+			</div>
+
+			<div layout="row" layout-xs="column" layout-wrap>
+				<div ng-repeat="friend in friends" flex="100" layout="row" layout-align="center center" style="padding-bottom: 16px;">
+					<md-card flex-gt-sm="50" flex="100">
+						<md-card-title>
+							<md-card-title-text>
+								<div layout="row" layout-align="center center">
+									
+									<div>
+										<a href="/u/{{friend.username}}"><img src="/uploads/{{friend.avatar}}" height="100" style="border-radius: 50%; padding:5px; background: #CCC;"></a>
+									</div>
+									<div  style="margin-left: 20px;" class="md-headline" flex>
+										{{friend.username}}
+									</div>
+									
+								</div>
+								<md-card-actions layout="row" layout-align="end center">
+									<md-button class="md-primary md-raised" ng-click="addFriend(friend)">Confirm</md-button>
+									<md-button class="md-primary md-raised" ng-click="removeFriend(friend)">Delete request</md-button>
+								</md-card-actions>
+							</md-card-title-text>
+						</md-card-title>
+					</md-card>
+				</div>
+			</div>
+		</div>
+
+		<div ng-if="friendsSent.length>0">
+			<div layout-align="center center" layout="row" style="margin-top: 20px;">
+				<div layout-padding class="md-display-2">Friend Requests Sent ({{friendsSent.length}})</div>
+			</div>
+
+			<div layout="row" layout-xs="column" layout-wrap>
+				<div ng-repeat="friend in friendsSent" flex="100" layout="row" layout-align="center center" style="padding-bottom: 16px;">
+					<md-card flex="100" flex-gt-sm="50">
+						<md-card-title>
+							<md-card-title-text>
+								<div layout="row" layout-align="center center">
+									<div>
+										<a href="/u/{{friend.username}}"><img src="/uploads/{{friend.avatar}}" height="100" style="border-radius: 50%; padding:5px; background: #CCC;"></a>
+									</div>
+									<div  style="margin-left: 20px;" class="md-headline" flex>
+										{{friend.username}}
+									</div>
+								</div>
+								<md-card-actions layout="row" layout-align="end center">
+									<md-button class="md-primary md-raised" ng-click="removeRequest(friend)">Delete request</md-button>
+								</md-card-actions>
+							</md-card-title-text>
+						</md-card-title>
+					</md-card>
+				</div>
+			</div>
+		</div>
+		<div ng-include="'/footer.html'"></div>
+	</div>
+
+</md-content>
+
+<script type="text/javascript" src="/scripts/cookies.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-messages.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+
+<script src="/scripts/multiplayertime_app.js"></script>
+<script src="/scripts/controllers/friends_controller.js"></script>
+<script src="/scripts/controllers/header_controller.js"></script>
+</body>
+</html>

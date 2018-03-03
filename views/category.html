@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="multiplayertime">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<title>Multiplayer Time</title>
+	<link rel="stylesheet" type="text/css" href="/css/index.css">
+	<link rel="stylesheet" type="text/css" href="/css/category.css">
+</head>
+<body ng-controller="CategoryPageController">
+
+	<md-content layout-fill layout="column" ng-cloak>
+		<!-- -->
+		
+		<div style="background: {{category.color}}; margin-bottom: 20px;" class="category">
+			<div ng-include="'/header.html'" class="header"></div>
+
+			<div class="container" layout="row">
+				<div flex>
+					<div class="title">
+						{{category.name}}
+					</div>
+					<div class="text">
+						{{category.description}}
+					</div>
+				</div>
+				<div hide-xs>
+					<img src="/images/categories/100/{{category.id}}.png" height="150">
+				</div>
+			</div>
+		</div>
+
+		<div>
+			<div layout="row" layout-xs="column" layout-padding layout-wrap>
+				<div ng-repeat="game in gamesList" flex="33" flex-xs="100" style="padding-bottom: 16px;">
+					<md-card class="md-card-game">
+						<a href="{{game.logo}}">
+							<div class="image" style=" background: url('{{game.card_image}}') center;">
+								<img src="{{game.logo}}" class="logo">
+							</div>
+						</a>
+						<md-card-title>
+							<md-card-title-text>
+								<span class="md-headline" style="color:{{game.color}}">{{game.name}}</span>
+								<div layout="row" layout-align="center center">
+									<span class="md-subhead smallines" flex><i class="material-icons" style="display: inline-flex;
+										vertical-align: top;">group</i> {{game.players}} Players</span>
+										<md-button class="md-raised md-primary" href="/game/{{game.route}}">Play</md-button>
+									</div>
+
+								</md-card-title-text>
+							</md-card-title>
+						</md-card>
+					</div>
+				</div>
+
+				<div ng-include="'/footer.html'"></div>
+			</div>
+
+		</md-content>
+
+		<script type="text/javascript" src="/scripts/cookies.js"></script>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-aria.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-messages.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+
+		<script src="/scripts/multiplayertime_app.js"></script>
+		<script src="/scripts/controllers/category_controller.js"></script>
+		<script src="/scripts/controllers/header_controller.js"></script>
+	</body>
+	</html>

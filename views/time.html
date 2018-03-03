@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Multiplayer Time</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<div style="width: 100px; height: 100px; background: blue" onclick="add()" ontouchstart="add()"></div>
+	<button onclick="add()" ontouchstart="add()">ADD TIME</button><input type="text" id="rate" value="1000"><input type="text" id="number" value="1"><input type="checkbox" id="info" >All info
+	<br>
+	<button onclick="startTasks()">Start all Tasks</button><button onclick="startTask1()">Task 1</button><button onclick="startTask2()">Task 2</button>
+	<button onclick="startTask3()">Task 3</button>
+	<br>
+	<button onclick="startServerTasks()">Server Tasks</button><button onclick="startServerTask1()">Task 1</button><button onclick="startServerTask2()">Task 2</button>
+
+	<div id="hello">
+
+	</div>
+
+
+	<div id="block">
+
+	</div>
+
+	<div id="intervals">
+
+	</div>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+	
+		var mysocket = io.connect('http://localhost:8000');
+		
+		var intervals = [];
+		var c = 0;
+
+		var hello = 0;
+		var startTime = 0;
+
+		var socket1 = io.connect('http://localhost:8000');
+		var socket2 = io.connect('http://localhost:8000');
+
+		socket1.on('task1', function (data) {
+			document.getElementById("hello").innerHTML = "Ola " + data.hello; 
+		});
+		socket2.on('task2', function (data) {
+			document.getElementById("block").innerHTML = "TASK2 " + (new Date());
+		});
+		function startTasks(){
+			startTask1();
+			startTask2();
+		}
+		function startServerTasks(){
+			startServerTask1();
+			startServerTask2();
+		}
+
+		async function startTask1(){
+			setTimeout(function(){document.getElementById("hello").innerHTML = "Ola " + hello; hello++;}, 1000);
+		}
+		function startServerTask1(){
+			socket1.emit("task1");
+		}
+		function startServerTask2(){
+			socket2.emit("task2");
+		}
+
+		async function startTask2(){
+			var startTime = getTime();
+
+			setTimeout(function(){
+				var i = 0;
+				var currentTime = getTime();
+				while(getTime()-startTime < 5000){
+					document.getElementById("block").innerHTML = i + " " + new Date();
+				}
+			},0);
+
+		}
+		function add(){
+			alert("entrou");
+			var rate = document.getElementById("rate").value;
+			var n = document.getElementById("number").value;
+			var allInfo = document.getElementById("info");
+			for(var i = 0; i < n ; i++){
+				setTimeout(function(){
+					if(allInfo.checked){
+						document.getElementById("intervals").innerHTML += "<div id=\"interval"+c+"\" style=\"float:left; padding:5px; background:#EFEFEF; margin:5px; min-width:100px;\"><h2>Timer"+c+"</h2><button onclick=\"state('"+c+"')\">play/stop</button><div id=\"content"+c+"\"></div><div id=\"ping"+c+"\">0</div></div>";
+					}else{
+						document.getElementById("intervals").innerHTML += "<div id=\"interval"+c+"\" style=\"float:left; padding:2px; font-size:13px; background:#EFEFEF; margin:1px; min-width:40px; height:40px;\">"+c+"<div id=\"ping"+c+"\"></div></div>";
+					}
+
+					intervals[c] = {id: c, div:null, div2:null, timer:start(c, rate), timer2:null, pingtime:getTime(), time: getTime(), ticks: 0, rate: rate, debug: allInfo.checked, request: 0, received: 0, ping: 0};
+
+					var socket = io.connect('http://localhost:8000');
+
+					socket.on('mypong', function (data) {
+						if(document.getElementById("ping"+this.i.id)!=null){
+							var ping = getTime() - this.i.pingtime;
+							this.i.ping = ping;
+							this.i.received++;
+							document.getElementById("ping"+this.i.id).innerHTML = ping+"ms<br><font>"+this.i.request+"/"+this.i.received+"</font>";
+							
+							if(ping < 50){
+								document.getElementById("interval"+this.i.id).style.background="#8BC34A";
+							}else if(ping <100){
+								document.getElementById("interval"+this.i.id).style.background="#EEFF41";
+							}else if(ping < 500){
+								document.getElementById("interval"+this.i.id).style.background="#FF9800";
+							}else{
+								document.getElementById("interval"+this.i.id).style.background="#E65100";
+							}
+						}
+					});
+
+					intervals[c].socket = socket;
+					socket.i = intervals[c];
+
+					c++;
+				}, 50*i);
+			}
+		}
+		function start(id, rate){
+			console.log(intervals);
+			console.log("START " + id + " at: " + rate);
+			return setInterval(tick, rate, id);
+		}
+		function start2(socket){
+			return setInterval(ping, 500, socket);
+		}
+		function ping(socket){
+			socket.i.request++;
+			socket.emit("myping");
+			socket.i.pingtime = getTime();
+			if(document.getElementById("ping"+socket.i.id)){
+				document.getElementById("ping"+socket.i.id).innerHTML = socket.i.ping+"ms<br><font>"+socket.i.request+"/"+socket.i.received+"</font>";
+			}
+		}
+		function tick(id){
+			var i = intervals[id];
+			var nTime = getTime(); 
+
+			if(i.debug){
+				
+				i.div2 = document.getElementById("content"+id);
+				var n = 0;
+
+				i.div2.innerHTML="Tick: "+ i.ticks + "<br>Time:" + (nTime-i.time) + "<br>rate:"+i.rate+"<br/> n:"+n;
+			}
+
+			i.ticks ++;
+			i.time = nTime;
+			i.socket.i = i;
+
+			if(i.timer2==null){
+				i.timer2=start2(i.socket);
+			}
+		}
+		function state(id){
+			var i = intervals[id];
+			if(i.timer == null){
+				i.timer = start(id, i.rate);
+			}else{
+				clearInterval(i.timer);
+				i.timer = null;
+			}
+		}
+
+		function getTime(){
+			var date = new Date();
+			return date.getTime();
+		}
+
+
+	</script>
+
+</body>
+</html>

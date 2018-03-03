@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="multiplayertime">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<title>Multiplayer Time</title>
+	<link rel="stylesheet" type="text/css" href="/css/index.css">
+</head>
+<body ng-controller="GamePageController">
+
+	<div ng-include="'/header.html'" class="header"></div>
+
+	<md-content layout-fill layout="column" ng-cloak class="content">
+		
+
+		<div>
+			<div layout-align="center center" layout="row" style="margin-top: 20px;">
+				<div layout-padding class="md-display-2">Games</div>
+			</div>
+
+			<div layout="row" layout-xs="column" layout-padding layout-wrap>
+				<div ng-repeat="game in gamesList" flex-gt-sm="33" flex-gt-xs="50" flex="100" style="padding-bottom: 16px;">
+					<md-card class="md-card-game">
+						<a href="/game/{{game.route}}">
+							<div class="image" style=" background: url('{{game.card_image}}') center;">
+								<img src="{{game.logo}}" class="logo">
+
+							</div>
+						</a>
+						<md-card-title>
+							<md-card-title-text>
+								<span class="md-headline" style="color:{{game.color}}">{{game.name}}</span>
+								<div layout="row" layout-align="center center">
+									<span class="md-subhead smallines" flex><i class="material-icons" style="display: inline-flex;
+										vertical-align: top;">group</i> {{game.players}} Players</span>
+										<md-button class="md-raised md-primary" href="/game/{{game.route}}">Play</md-button>
+									</div>
+
+								</md-card-title-text>
+							</md-card-title>
+						</md-card>
+					</div>
+				</div>
+
+				<!--
+				<div layout-align="center center" layout="row" style="margin-top: 20px;">
+					<div layout-padding class="md-display-2">All Categories</div>
+				</div>
+
+				<div layout="row" layout-xs="column"  layout-padding layout-wrap>
+					<div ng-repeat="category in categoriesList" layout="column" flex="33" flex-xs="100" style="padding-top: 8px;">
+					<div style="background:{{category.color}}; margin:8px; padding: 10px; height: 100%; box-shadow:0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12); border-radius: 2px; width: 100%; " layout="column"  layout-align="center center" >
+							<img src="/images/categories/100/{{category.id}}.png" height="200">
+							<a href="/category/{{category.id}}"><div class="md-headline" style="color: #FFF; text-align: center; padding-top: 20px; padding-bottom: 20px;">{{category.name}}</div></a>
+						</div>
+					</div>
+				</div>
+				////
+				<div>
+					<md-grid-list md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="4" md-row-height-gt-md="1:1" md-row-height="2:2" md-gutter="12px" md-gutter-gt-sm="8px" >
+
+						<md-grid-tile md-rowspan="1" md-colspan="1" ng-repeat="category in categoriesList">
+							<md-card style="height: 100%; width: 100%;">
+								<a href="/category/{{category.id}}"><div style="height: 200px; background: url('/images/marrakesh-meadow-80.jpg') no-repeat center;
+									background-size:cover; border-radius: 2px 2px 0px 0px"></div>
+								</a>
+								<md-card-title>
+									<md-card-title-text>
+										<span class="md-headline">{{category.name}}</span>
+									</md-card-title-text>
+								</md-card-title>
+							</md-card>
+						</md-grid-tile>
+
+
+
+					</md-grid-list>
+				</div>
+			-->
+			<div ng-include="'/footer.html'"></div>
+		</div>
+
+	</md-content>
+
+	<script type="text/javascript" src="/scripts/cookies.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-aria.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-messages.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+
+	<script src="/scripts/multiplayertime_app.js"></script>
+	<script src="/scripts/controllers/game_page_controller.js"></script>
+	<script src="/scripts/controllers/header_controller.js"></script>
+</body>
+</html>

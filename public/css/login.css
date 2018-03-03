@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
+
+.container{
+	background: #FFF;
+	overflow-y:auto;
+	padding-top:70px;
+}
+
+.md-block{
+	margin:0px;
+	padding: 0px;
+}
+
+.md-display-1{
+	line-height: 0px;
+}
+
+.bg{
+	background: url("/images/bg1.png") no-repeat center;
+	background-size:cover;
+}
+
+.background-tint {
+	background-color: rgba(200,100,0,.8);
+	background-blend-mode: multiply;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	transition: background-color 5000s ease-in-out 0s;
+}

@@ -1,0 +1,22 @@
+<header hide show-gt-sm  ng-controller="HeaderController">
+	<nav>
+		<a class="logo"><img src="/images/logo2.png" height="80"></a>
+		<ul>
+			<li> 
+				Games
+			</li>
+			<li>
+				{{User.hasLogin}}
+			</li>
+			<li ng-show="User.hasLogin"="User.hasLogin">
+				{{User.username}}
+			</li>
+			<li ng-show="User.hasLogin" ng-click="logout()">
+				Logout
+			</li>
+			<li class="button" ng-hide="User.hasLogin">
+				<a href="/login"><md-button class="md-raised md-pink">Sign in</md-button></a>
+			</li>
+		</ul>
+	</nav>
+</header>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="multiplayertime">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<title>Multiplayer Time</title>
+	<link rel="stylesheet" type="text/css" href="/css/index.css">
+</head>
+<body ng-controller="ProfileController">
+	<div ng-include="'/header.html'" class="header"></div>
+
+	<md-content layout-fill layout="column" ng-cloak class="content">
+		<div layout-fill>
+			<div layout="column" layout-align="center center" layout-fill style="background: url('/images/bg1.png') no-repeat center;	background-size:cover;	background-color: rgba(0,0,50,.8);	background-blend-mode: multiply; position: relative;">
+
+				<div style="height: 50%; margin-bottom: 20px;">
+					<img src="/uploads/{{user.avatar}}" style="border-radius: 50%;height: 100%; background-color:#FFF; border: 10px white solid;">
+				</div>
+
+				<div class="md-display-1" style="color: #FFF; margin-top: 20px;">{{user.username}}
+
+					<md-menu md-position-mode="target-right target" md-offset="0 40" ng-if="You">
+						<md-button ng-click="openMenu($mdOpenMenu, $event)" class="md-icon-button" aria-label="Edit">
+							<md-icon> <i class="material-icons" style="color: #FFF;">more_vert</i></md-icon>
+						</md-button>
+						<md-menu-content width="3">
+							<md-menu-item>
+								<md-button ng-click="changeAvatar()">
+									<md-icon><i class="material-icons menu-icon">person</i></md-icon>Change Avatar
+								</md-button>
+							</md-menu-item>
+							<md-menu-item>
+								<md-button ng-click="changePassword()">
+									<md-icon><i class="material-icons menu-icon">security</i></md-icon>Change Password
+								</md-button>
+							</md-menu-item>
+						</md-menu-content>
+					</md-menu>
+					
+				</div>
+
+				<md-button class="md-raised" style="margin-top: 20px; padding: 5px 20px;" ng-if="button.visible" ng-click="button.action()">	{{button.text}}</md-button>
+
+					<!--
+					<md-button class="md-raised" style="margin-top: 20px; padding: 5px 20px;" ng-if="Login && !You && !user.isFriend && user.id != id " ng-click="addFriend()">ADD friend</md-button>
+
+					<md-button class="md-raised" style="margin-top: 20px; padding: 5px 20px;" ng-if="user.isFriend" ng-click="unfriend()">unfriend</md-button>
+				-->
+			</div>	
+			<div ng-if="friends.length>0">
+				<div layout-align="center center" layout="row" style="margin-top: 20px;">
+					<div layout-padding class="md-display-2">Friends</div>
+				</div>
+
+				<!--<div layout="row" flex-xs="100" flex="80" layout-xs="column">
+					<div layout="column" layout-align="center center" flex="50" ng-repeat="friend in friends">
+						<img src="/uploads/{{friend.avatar}}" >
+						<div>{{friend.username}}</div>
+					</div>
+				</div> -->
+				<div layout="row" layout-xs="column" layout-align="center center" layout-wrap  >
+					<div ng-repeat="friend in friends" flex="33" flex-xs="100" style="padding-bottom: 16px;" layout="column" layout-align="center center">
+						<img src="/uploads/{{friend.avatar}}" height="200" style="border-radius: 50%; background: #EFEFEF; padding: 10px;">
+						<div class="md-title" style="margin-top: 10px; margin-bottom: 10px;" layout-padding>{{friend.username}}</div>
+
+						<md-button class="md-raised md-primary" href="/u/{{friend.username}}">View Profile</md-button>
+					</div>
+				</div>
+			</div>
+			<div ng-include="'/footer.html'"></div>
+		</div>
+
+	</md-content>
+
+	<script type="text/javascript" src="/scripts/cookies.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-aria.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-messages.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+
+	<script src="/scripts/multiplayertime_app.js"></script>
+	<script src="/scripts/controllers/profile_controller.js"></script>
+	<script src="/scripts/controllers/header_controller.js"></script>
+</body>
+</html>

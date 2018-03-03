@@ -1,0 +1,34 @@
+/*.header{
+	background: #06F;
+}
+header{
+	background: none !important;
+}
+header nav{
+	overflow: auto;
+	
+	background: #FFF;
+	color: #444;
+	border-bottom: 1px #CCC solid;
+}
+*/
+
+.category .title{
+	color: #FFF;
+	font-size: 100px;
+}
+
+.category .text{
+	color: #FFF;
+	font-size: 30px;
+}
+.category .container{
+	padding-left: 5%;
+	padding-right: 5%;
+	padding-bottom: 20px;
+}
+
+header nav{
+	background: none !important;
+	border-bottom: none ! important;
+}

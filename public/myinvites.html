@@ -1,0 +1,30 @@
+<md-dialog aria-label="Mango (Fruit)" style="max-width: 500px; width: 500px;">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Game Invites</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <i class="material-icons">clear</i>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <div layout="column">
+          <div ng-repeat="inv in invites" layout="row" layout-align="center center" layout-xs="column">
+            <div flex class="md-headline">{{inv.user.username}}</div>
+            <md-button class="md-raised md-primary" ng-click="join(inv)">JOIN</md-button>
+          </div>
+
+          <div layout="column" layout-align="center center" ng-if="invites.length == 0">
+            <div class="md-display-1">
+              You have no invites.
+            </div>
+          </div>
+        </div>
+      </div>
+    </md-dialog-content>
+
+  </md-dialog>

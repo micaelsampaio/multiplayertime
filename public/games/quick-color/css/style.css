@@ -1,0 +1,28 @@
+:root {
+  --startX: 6%;
+}
+body{
+	background: #CCC;
+}
+.container{
+	position:relative;
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+.gamecontainer{
+    overflow: hidden; 
+    margin-left:  calc(50% - 182px);
+    height: 650px;
+    width: 400px;
+}
+#game{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #EFEFEF;
+}
+
+/*####################################### GAME #######################################*/

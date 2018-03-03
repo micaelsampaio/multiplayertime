@@ -1,0 +1,118 @@
+<md-content class="container">
+	<md-card>
+		<div layout="row" layout-padding>
+			<h2 class="md-headline" flex>{{title}}</h2>
+		</div>
+
+		<md-card-content layout="column">
+
+			<div layout-gt-sm="row">
+				<md-input-container class="md-block" flex flex-gt-sm> 
+					<label>Name</label>
+					<input ng-model="game.name" required>
+				</md-input-container>
+				<md-input-container class="md-block" flex flex-gt-sm>
+					<label>Route</label>
+					<input ng-model="game.route" required>
+				</md-input-container>
+			</div>
+
+			
+			<md-input-container class="md-block" flex >
+				<label>Description</label>
+				<input ng-model="game.description" required>
+			</md-input-container>
+
+			<div layout="row">
+				<md-upload-file ng-model="fileLogo"></md-upload-file>
+				<div>
+					Logo<br/>
+					<img src="{{game.logo}}" width="300">
+				</div>
+			</div>
+
+			<div layout="row">
+				<md-upload-file ng-model="fileCardImage"></md-upload-file>
+				<div>
+					Card Image<br/>
+					<img src="{{game.card_image}}" width="300">
+				</div>
+			</div>
+
+			<div layout="row">
+				<md-input-container flex="50">
+					<label>Min Players</label>
+					<md-select name="type" ng-model="game.min_players" required>
+						<md-option value="2">2 Players</md-option>
+						<md-option value="3">3 Players</md-option>
+						<md-option value="4">4 Players</md-option>
+						<md-option value="5">5 Players</md-option>
+						<md-option value="6">6 Players</md-option>
+					</md-select>
+				</md-input-container>
+
+				<md-input-container flex="50">
+					<label>Max Players</label>
+					<md-select name="type" ng-model="game.max_players">
+						<md-option value="">None</md-option>
+						<md-option value="3">3 Players</md-option>
+						<md-option value="4">4 Players</md-option>
+						<md-option value="5">5 Players</md-option>
+						<md-option value="6">6 Players</md-option>
+					</md-select>
+				</md-input-container>
+			</div>
+
+			<div layout="row" layout-xs="column">
+				<md-input-container class="md-block" flex="50" >
+					<label>Color</label>
+					<input ng-model="game.color" required>
+				</md-input-container>
+
+				<div style="width: 50px; height: 50px; background:{{game.color}}; margin-left: 10px;">
+
+				</div>
+				<div flex layout-align="center" style="margin-top: 15px; margin-left: 10px; color:{{game.color}}">
+					<h2 class="md-headline" flex>{{game.name}}</h2>
+				</div>
+			</div>
+
+			<div layout="row">
+				<md-input-container flex="100">
+					<label>Category</label>
+					<md-select name="type" ng-model="game.category.id" required>
+						<md-option ng-value="cat.id" ng-repeat="cat in categories">{{ cat.name }}</md-option>
+					</md-select>
+				</md-input-container>
+			</div>
+
+			<!--<md-chips ng-model="game.category" md-autocomplete-snap
+			md-transform-chip="transformChip($chip)"
+			md-require-match="true">
+			<md-autocomplete
+			md-selected-item="selectedItem"
+			md-search-text="searchText"
+			md-items="item in querySearch(searchText)"
+			md-item-text="item.name"
+			md-highlight-flags="i"
+			filter-selected="true"
+			placeholder="Categories">
+			<span md-highlight-text="searchText">{{item.name}}</span>
+		</md-autocomplete>
+		<md-chip-template>
+			<span>
+				<strong>{{$chip.name}}</strong>
+			</span>
+		</md-chip-template>
+	</md-chips> -->
+
+	<br/>
+	<br/>
+
+	<div layout-align="end center">
+		<md-button ng-click="save()" class="md-raised md-primary">{{btText}}</md-button>
+	</div>
+
+</md-card-content>
+</md-card>
+</md-content>

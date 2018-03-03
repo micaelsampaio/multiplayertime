@@ -1,0 +1,47 @@
+<md-dialog aria-label="Mango (Fruit)" style="max-width: 500px; width: 500px;">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Friends List</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <i class="material-icons">clear</i>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="column" layout-wrap>
+
+        <div ng-repeat="user in friends" flex layout="row" layout-align="center center" style="padding-bottom: 30px;">
+          <img src="/uploads/{{user.avatar}}" height="60" style="border-radius: 50%; background: #EFEFEF;">
+          <div class="md-headline" flex style="margin:10px 20px;">{{user.username}}</div>
+          <md-button class="md-raised md-primary" ng-click="addChip(user.username)">Invite</md-button>
+        </div>
+
+      </div>
+    </md-dialog-content>
+    
+
+    <md-dialog-actions layout="row" style="max-height: none !important; padding: 10px; height: auto !important; height: auto; padding-top: 10px !important; padding-bottom: 10px !important;">
+
+      <div flex style="padding: 10px;">
+       <md-chips flex ng-model="invites" readonly="ctrl.readonly" md-removable="ctrl.removable" md-max-chips="5" placeholder="Invite a Player">
+        <md-chip-template>
+          <strong>{{$chip}}</strong>
+        </md-chip-template>
+      </div>
+
+      <div class="errors" ng-messages="fruitForm.fruitName.$error">
+        <div ng-message="md-max-chips">Maximum number of chips reached.</div>
+      </div>
+    </form>
+
+    <md-button class="md-raised md-primary" ng-click="invite()">
+      Invite
+    </md-button>
+
+
+  </md-dialog-actions>
+</form>
+</md-dialog>

@@ -1,0 +1,31 @@
+{
+  "name": "mulotiplayertime",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Multiplayer Time",
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "main": "app.js",
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "express": "^4.12.3",
+    "express-session": "^1.15.3",
+    "formidable": "^1.1.1",
+    "fs": "0.0.1-security",
+    "jsonwebtoken": "^7.4.1",
+    "mongoose": "^4.11.3",
+    "socket-io": "^1.0.0",
+    "socket.io": "^2.0.3",
+    "swagger-express-mw": "^0.1.0",
+    "uniqid": "^4.1.1"
+  },
+  "devDependencies": {
+    "should": "^7.1.0",
+    "supertest": "^1.0.0"
+  },
+  "scripts": {
+    "start": "node notifications.js | node app.js",
+    "test": "swagger project test"
+  }
+}

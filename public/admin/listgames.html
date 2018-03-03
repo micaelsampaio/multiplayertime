@@ -1,0 +1,13 @@
+<md-content class="container">
+	<md-card>
+		<div layout="row" layout-padding>
+			<h2 class="md-headline" flex>Games</h2> <md-button class="md-icon-button" ng-click="showConfirm($event)"><md-icon class="material-icons">delete</md-icon></md-button>
+		</div>
+
+		<md-list-item ng-repeat="game in games | orderBy:'name'">
+			<md-checkbox ng-model="game.selected"></md-checkbox>
+			<p>{{game.name}}</p>
+			<md-button class="md-icon-button" ng-click="go(game.id)"><md-icon class="material-icons">edit</md-icon></md-button>
+		</md-list-item>
+	</md-card>
+</md-content>

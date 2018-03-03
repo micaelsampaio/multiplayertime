@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="multiplayertime">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<title>Multiplayer Time</title>
+	<link rel="stylesheet" type="text/css" href="/css/index.css">
+</head>
+<body ng-controller="InviteController">
+
+	<div ng-include="'/header.html'" class="header"></div>
+
+	<md-content layout-fill layout="column" ng-cloak class="content">
+
+		<div layout-fill>
+
+			<div layout="row">
+			</div>
+
+			<div layout-align="center center" layout="column" layout-fill ng-if="invites.length==0">
+				<div layout-padding class="md-display-2" >You have no Invites</div>
+				<img src="/images/cry.png" style="max-height: 400px;">
+			</div>
+
+			<div ng-if="invites.length>0">
+				<div layout-align="center center" layout="row" style="margin-top: 20px;">
+					<div layout-padding class="md-display-2">Game Invites ({{invites.length}})</div>
+				</div>
+
+				<div layout="row" layout-xs="column" layout-wrap>
+					<div ng-repeat="invite in invites" flex="100" layout="row" layout-align="center center" style="padding-bottom: 16px;">
+						<md-card class="invite in invites" flex="50" flex-xs="100">
+							<md-card-title>
+								<md-card-title-text>
+									<div layout="row" layout-align="center center">
+										<img src="/uploads/{{invite.game.logo}}" height="60"> 
+										<span class="md-display-1" style="margin-left: 20px;color:{{game.color}}">{{invite.game.name}}</span>
+									</div>
+
+									<div layout="row" layout-align="center center">
+
+										<div>
+											<a href="/u/{{invite.user.username}}"><img src="/uploads/{{invite.user.avatar}}" height="100" style="border-radius: 50%; padding:10px; background: #CCC;"></a>
+										</div>
+										<div  style="margin-left: 20px;" class="md-headline" flex>
+											{{invite.user.username}}
+										</div>
+
+									</div>
+
+									<md-card-actions layout="row" layout-align="end center">
+										<md-button class="md-raised md-primary" href="/game/{{invite.game.route}}/{{invite.room}}">Join</md-button>
+									</md-card-actions>
+								
+
+							</md-card-title-text>
+							
+						</md-card-title>
+
+					</md-card>
+				</div>
+			</div>
+		</div>
+		<div ng-include="'/footer.html'"></div>
+	</div>
+
+</md-content>
+
+<script type="text/javascript" src="/scripts/cookies.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-messages.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+
+<script src="/scripts/multiplayertime_app.js"></script>
+<script src="/scripts/controllers/invite_controller.js"></script>
+<script src="/scripts/controllers/header_controller.js"></script>
+</body>
+</html>

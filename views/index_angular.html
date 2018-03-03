@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body>
+
+	<div ng-app="myApp" ng-controller="myCtrl"> 
+
+		<p>Data : {{content}}</p>
+		<p>Status : {{statuscode}}</p>
+		<p>StatusText : {{statustext}}</p>
+		<hr/>
+		<p>Data : {{content2.success}}</p>
+		<p>Status : {{statuscode2}}</p>
+		<p>StatusText : {{statustext2}}</p>
+
+
+		<div style="width:200px; text-align:center;padding: 20px; background: #EFEFEF;">
+			<input type="text" ng-model="username">
+			<br/><br/>
+			<input type="password" ng-model="password">
+			<br/><br/>
+			<button ng-click="login()">Login</button>
+		</div>
+
+		<div style="width:200px; margin-top:20px; text-align:center;padding: 20px; background: #EFEFEF;">
+			<button ng-click="logout()">Logout</button>
+		</div>
+
+		<div style="width:200px; margin-top:20px; text-align:center;padding: 20px; background: #EFEFEF;">
+			<button ng-click="getCategories()">categories</button>
+		</div>
+
+		<h1> Games </h1>
+
+		<div style="overflow: hidden;">
+			<div ng-repeat="game in gamesList">
+				<div style="float: left; margin-left: 20px; margin-bottom: 20px; width: 300px; padding: 10px; background: {{game.color}}">
+					<h3>{{game.name}}</h3>
+					<p>{{game.description}}</p>
+					<p>{{game.players}} Players</p>
+					<p>{{game.category_id}} </p>
+				</div>
+			</div>
+		</div>
+
+		<h1> Action Games </h1>
+
+		<div style="overflow: hidden;">
+			<div ng-repeat="game in gamesList">
+				<div style="float: left; margin-left: 20px; margin-bottom: 20px; width: 300px; padding: 10px; background: #EFEFEF;">
+					<h3>{{game.name}}</h3>
+					<p>{{game.description}}</p>
+					<p>{{game.players}} Players</p>
+				</div>
+			</div>
+		</div>
+
+		<div style="overflow: hidden;">
+			<div ng-repeat="cat in categories">
+				<div style="float: left; margin-left: 20px; margin-bottom: 20px; width: 300px; padding: 10px; background: #EFEFEF;">
+					<h3>{{cat.name}}</h3>
+					<p>{{cat.description}}</p>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+
+	<p>The response object has many properties. This example demonstrate the value of the data, status, and statusText properties.</p>
+
+	<script>
+		var app = angular.module('myApp', []);
+		
+		
+		app.controller('myCtrl', function($scope, $http) {
+			$scope.username= "";
+			$scope.password= "";
+			$scope.categories = [];
+			$scope.afterLogin = function(){
+				$http.get("/teste")
+				.then(function(response) {
+					$scope.content = response.data;
+					$scope.statuscode = response.status;
+					$scope.statustext = response.statusText;            
+				});
+			}
+
+			$http.get("/api/game")
+			.then(function(response) {
+				$scope.gamesList = response.data;
+			});
+			
+			$scope.logout = function(){
+				$http({
+					url: '/api/logout',
+					method: "GET",
+					headers: {
+						'Authorization': $scope.getCookie("token")
+					}
+				})
+				.then(function(response) {
+					$scope.content2 = response.data;
+					if(response.data.success){
+						$scope.setCookie("token", "");
+						$scope.afterLogin();
+					}
+					$scope.afterLogin();
+				});
+			};
+
+			$scope.getCategories = function(){
+				$http({
+					url: '/api/category',
+					method: "GET",
+					headers: {
+						'Authorization': $scope.getCookie("token")
+					}
+				})
+				.then(function(response) {
+					$scope.categories = response.data;
+					$scope.content = response.data;
+					$scope.statuscode = response.status;
+					$scope.statustext = response.statusText; 
+				});
+			};
+
+			$scope.login = function(){
+				$http({
+					url: '/api/login',
+					method: "POST",
+					data :{ username: $scope.username, password: $scope.password}
+				})
+				.then(function(response) {
+					$scope.content2 = response.data;
+					$scope.statuscode2 = response.status;
+					$scope.statustext2 = response.statusText;
+
+					if(response.data.success){
+						$scope.setCookie("token", response.data.token);
+						$scope.afterLogin();
+					}
+				}, 
+				function(response) { 
+					$scope.content2 = response.data;
+				});
+			};
+
+			$scope.afterLogin();
+
+			$scope.setCookie = function(cname, cvalue) {
+				var d = new Date();
+				d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
+				var expires = "expires="+d.toUTCString();
+				document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+			}
+
+			$scope.getCookie = function(cname) {
+				var name = cname + "=";
+				var ca = document.cookie.split(';');
+				for(var i = 0; i < ca.length; i++) {
+					var c = ca[i];
+					while (c.charAt(0) == ' ') {
+						c = c.substring(1);
+					}
+					if (c.indexOf(name) == 0) {
+						return c.substring(name.length, c.length);
+					}
+				}
+				return "";
+			}
+		});
+
+
+
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
+
+:root {
+	--primary: rgb(33,150,243);
+}
+
+body{
+	margin: 0px;
+	padding: 0px;
+	background: #EFEFEF;
+}
+.content{
+	min-height: calc(100% - 75px) !important;
+	height: calc(100% - 75px) !important;
+	top:75px;
+}
+header nav{
+	background: rgb(33,150,243);
+	color: #FFF;
+	position: fixed;
+	width: 100%;
+	height: 75px;
+	z-index: 100;
+	top: 0px;
+	left: 0px;
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+} 
+
+header nav .logo{
+	float: left;
+	margin-left: 40px;
+}
+header nav .logo-xs{
+	float: left;
+	margin-left: 10px;
+	margin-top: 15px; 
+	margin-bottom: 15px;
+}
+header ul{
+	float: right;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+header ul li{
+	float: left;
+	margin-right: 20px;
+	margin-top: 20px;
+	cursor: pointer;
+}
+header ul .parentpopup{
+	position:relative;
+}
+header ul li .popup{
+	position: absolute;
+	top: -5px; 
+	left: 20px;
+	width: 12px; 
+	height: 12px; 
+	border-radius: 20%; 
+	background-color: #FF0000; 
+	color: #FFF; 
+	font-size: 12px;
+	padding: 0px 2px;
+	height:16px;
+	vertical-align: middle;
+	line-height: 16px;
+	text-align: center;
+}
+header ul button, header ul a {
+	background: #F00!important;
+	margin:0px !important;
+	background: none!important;
+	padding: 0px 5px !important;
+	border: none ! important;
+	color: #FFF !important;
+	min-width: 0px !important;
+	min-height: 0px !important;
+	outline: none !important;
+	font-size: 16px !important;
+	border-radius: 0px !important;
+	text-transform: capitalize !important;
+	height: auto !important;
+}
+header ul li:after {
+	display:block;
+	content: '';
+	border-bottom: solid 3px #FFF;  
+	transform: scaleX(0);  
+	transition: transform 250ms ease-in-out;
+}
+header ul li:hover:after { transform: scaleX(1); }
+
+header .avatar{
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	margin-right: 5px;
+	border: 2px rgba(255, 255,255, 0.5) solid;
+}
+
+menu-text{
+	vertical-align:top;
+}
+.newGamesIcon{
+	background: url("/images/new-games.png") no-repeat center;
+	background-size:contain;
+}
+
+/************************** ***************************/
+
+
+.md-headline{
+	text-decoration: none;
+}
+.smallines{
+	max-height: 45px;
+	overflow: hidden;
+}
+
+/******************************* **************************/
+.md-card-game{
+	height: 100%;
+}
+.md-card-game .image{
+	height: 200px;
+	background-repeat:no-repeat;
+	background-size:cover;
+	border-radius: 2px 2px 0px 0px; 
+	text-align: center;
+}
+.md-card-game .logo{
+	height:200px;s
+	max-width: 200px;s
+}

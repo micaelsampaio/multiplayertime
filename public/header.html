@@ -1,0 +1,49 @@
+
+<header ng-controller="HeaderController">
+	<audio id="notification_audio">
+		<source src="/sounds/notification.wav" type="audio/wav"/>
+	</audio>
+	<nav>
+		<a hide-xs  class="logo" href="/"><img src="/images/logo7.png" height="70"></a>
+		<a hide-gt-xs class="logo-xs" href="/"><img src="/images/logo7.png" height="40"></a>
+		<ul>
+			
+			<li hide-xs>
+				<md-button ng-href="/games">Games</md-button>
+			</li>
+			<li ng-show="User.hasLogin" class="parentpopup"> 
+				<md-button ng-href="/invites"><i style="padding-top: 5px;" class="material-icons">videogame_asset</i></md-button>
+				<div class="popup" ng-show="invites.length > 0">{{invites.length}}</div>
+			</li>
+			<li ng-show="User.hasLogin" class="parentpopup">
+				<!-- <md-button href="/friends">Friend Requests</md-button> -->
+				<md-button ng-href="/friends"><i style="padding-top: 5px;" class="material-icons">people</i></md-button>
+				<div class="popup" ng-show="friends.length > 0">{{friends.length}}</div>
+			</li>
+			
+			<li ng-show="User.hasLogin">
+				<md-menu md-position-mode="target-right target" md-offset="0 40">
+					<md-button aria-label="menu" ng-click="openMenu($mdOpenMenu, $event)" layout="row" layout-align="center center">
+						<img class="avatar" src="/uploads/{{User.avatar}}"><span hide-xs>{{User.username}}</span> <i class="material-icons" style="margin-left:5px;">arrow_drop_down</i></md-button>
+					</md-button>
+					<md-menu-content width="3">
+						<md-menu-item>
+							<md-button ng-href="/u/{{User.username}}">
+								<md-icon><i class="material-icons menu-icon">person</i></md-icon>Profile
+							</md-button>
+						</md-menu-item>
+						<md-menu-item>
+							<md-button ng-click="logout()">
+								<md-icon><i class="material-icons menu-icon">exit_to_app</i></md-icon>Logout
+							</md-button>
+						</md-menu-item>
+					</md-menu-content>
+				</md-menu>
+			</li>
+			
+			<li ng-hide="User.hasLogin">
+				<md-button ng-href="/login">Sign in</md-button></a>
+			</li>
+		</ul>
+	</nav>
+</header>

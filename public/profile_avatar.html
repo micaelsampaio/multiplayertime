@@ -1,0 +1,28 @@
+<md-dialog aria-label="Mango (Fruit)" style="max-width: 400px; width: 400px;">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Change Avatar</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <i class="material-icons">clear</i>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+
+      <div layout="column" layout-align="center center">
+        <md-upload-file ng-model="newAvatar"></md-upload-file>
+
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+    <md-button ng-click="cancel()">
+        Cancel
+      </md-button>
+      <md-button ng-click="hide()">
+       Change avatar
+     </md-button>
+   </md-dialog-actions>
+ </md-dialog>

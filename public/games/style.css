@@ -1,0 +1,34 @@
+:root {
+  --startX: 6%;
+}
+html {
+  touch-action: manipulation;
+}
+
+body{
+	background: #000;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+.container{
+	position:relative;
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+.gamecontainer{
+    overflow: hidden;
+    position: relative;
+}
+#game{
+    position: absolute;
+    background: #EFEFEF;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
+/*####################################### GAME #######################################*/
