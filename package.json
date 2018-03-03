@@ -1,31 +1,41 @@
 {
-  "name": "mulotiplayertime",
-  "version": "1.0.0",
-  "private": true,
-  "description": "Multiplayer Time",
-  "keywords": [],
-  "author": "",
-  "license": "",
-  "main": "app.js",
-  "dependencies": {
-    "crypto": "^1.0.1",
-    "express": "^4.12.3",
-    "express-session": "^1.15.3",
-    "formidable": "^1.1.1",
-    "fs": "0.0.1-security",
-    "jsonwebtoken": "^7.4.1",
-    "mongoose": "^4.11.3",
-    "socket-io": "^1.0.0",
-    "socket.io": "^2.0.3",
-    "swagger-express-mw": "^0.1.0",
-    "uniqid": "^4.1.1"
-  },
-  "devDependencies": {
-    "should": "^7.1.0",
-    "supertest": "^1.0.0"
-  },
-  "scripts": {
-    "start": "node notifications.js | node app.js",
-    "test": "swagger project test"
-  }
+    "name": "mulotiplayertime",
+    "version": "1.0.0",
+    "private": true,
+    "description": "Multiplayer Time",
+    "keywords": [
+        "games",
+        "2D",
+        "multiplayer"
+    ],
+    "author": "Micael Sampaio",
+    "license": "",
+    "main": "app.js",
+    "dependencies": {
+        "colors": "^1.1.2",
+        "crypto": "^1.0.1",
+        "express": "^4.12.3",
+        "express-session": "^1.15.3",
+        "formidable": "^1.1.1",
+        "fs": "0.0.1-security",
+        "jsonwebtoken": "^7.4.1",
+        "mongoose": "^4.11.3",
+        "npm-run-all": "^4.1.2",
+        "path": "^0.12.7",
+        "socket-io": "^1.0.0",
+        "socket.io": "^2.0.3",
+        "swagger-express-mw": "^0.1.0",
+        "uniqid": "^4.1.1"
+    },
+    "devDependencies": {
+        "should": "^7.1.0",
+        "supertest": "^1.0.0"
+    },
+    "scripts": {
+        "create:db": "mongorestore --db multiplayer_time_database multiplayer_time_database",
+        "start:web": "node app.js",
+        "start:notifications": "node notifications.js",
+        "start": "npm-run-all --parallel start:* -- --watch",
+        "test": "swagger project test"
+    }
 }

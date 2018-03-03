@@ -35,7 +35,6 @@ module.exports.addFriend = function(req, res) {
 
 						f.save(function(err) {
 							if (!err){
-								console.log("NOTIFICATION");
 								notifications.sendNotification(req.session.token, friend);
 								res.json({success: true, description: "Sucess!"});
 							}else{
@@ -59,11 +58,9 @@ module.exports.addFriend = function(req, res) {
 module.exports.acceptFriend = function(req, res) {
 	var userid = req.session.decoded.userid.toLowerCase();
 	var friend = req.swagger.params.id.value.toLowerCase();
-	console.log("DECODED");
-	console.log(req.session.decoded);
+
 	Friend.findOne({user : friend, friend: userid}, function (err, user) {
-		console.log(user);
-		console.log(friend + " " + userid);
+		
 		if(!err && user){
 
 			user.accepted = true;

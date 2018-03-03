@@ -55,7 +55,6 @@ function onCreateGame(){
 	game.update = lobby;
 }
 function onFindGame(room){
-	console.log("ROOM " + room);
 	if(room != null){
 		game.update = lobby;
 	}else{
@@ -113,14 +112,12 @@ function doubleLoginError(){
 
 function endGame(){
 	if(game.Button(200, 50, 200, 50, "PLAY", "white", "blue")){
-		console.log("CLICK END");
 		client.emit("ready");
 	}
 }
 
 function lobby(){
 	game.drawRect(0,0, game.width, game.height,"#3F51B5");
-	//console.log(client.getPlayers());
 	game.drawImage(game.getImage("logo"), 165,-10,130, 130);
 
 	var y = 70 + 50;
@@ -191,7 +188,6 @@ var hasTimer = true;
 var maxTime = 10000;
 
 function onStartGame(data){
-	console.log(data);
 	players = [];
 	readyPlayers = [undefined, undefined];
 
@@ -319,7 +315,6 @@ function update(){
 
 ////
 function play(column){
-	console.log("PLAY ->" + currentPlayer + " " + mPlayer);
 	if(currentPlayer == mPlayer){
 		var index = getRow(column);
 		if(index != -1){
@@ -343,19 +338,15 @@ function getRow(column){
 function onReady(data){
 	if(state == STATE.LOAD){
 		state = STATE.GAME;
-		console.log("can play");
 	}
 	if(state == STATE.ENDGAME){
 		var index = getPlayerId(data.id);
 		if(index!=-1){
 			readyPlayers[index] = true;
 		}
-
-		console.log("READY " + readyPlayers);
 	}
 }
 function onDisconnect(data){
-	console.log("onDisconnect")
 	var index = getPlayerId(data.id);
 	if(index != mPlayer){
 		client.exitRoom();
@@ -364,8 +355,6 @@ function onDisconnect(data){
 }
 
 function onPlay(data){ 
-	console.log(data);
-
 	map[data.row][data.col] = data.player;
 	currentPlayer = data.currentPlayer;
 

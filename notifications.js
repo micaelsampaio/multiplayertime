@@ -26,11 +26,11 @@ app.all('*', function(req, res, next) {
 
 http.listen(9000);
 
-console.log("MAGIC STUFF 9000");
+console.log("MAGIC NOTIFICATIONS STUFF http://localhost:9000");
+
 io.on('connection', function (socket) {
 	socket.userid = null;
 	socket.notifications = 0;
-	console.log("CONNECT USER " + socket.id);
 	socket.on("login", onLogin);
 	socket.on('disconnect', onDisconnect);
 });
@@ -54,7 +54,6 @@ function onLogin(data){
 			socket.on("notifications", onNotifications);
 			sockets.push(socket);
 			sendNotifications(socket);
-			console.log("USER -->" + socket.userid );
 		}
 	});
 }

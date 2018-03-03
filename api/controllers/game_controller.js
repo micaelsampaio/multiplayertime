@@ -6,9 +6,7 @@ var uniqid = require('uniqid');
 var path = "/uploads/";
 
 module.exports.upload = function(req, res) {
-	
 	var file = req.swagger.params.avatar.value;
-	
 
 	var data = {
 		'id': file.name,
@@ -17,57 +15,9 @@ module.exports.upload = function(req, res) {
 		'type': file.mimetype
 	};
 
-	console.log(data);
-
-	
-	/*fs.writeFile( req.app.get('uploadPath') + 'teste', "Hey there!", function(err) { 
-		if(err) {
-			return console.log(err);
-		}else{
-			console.log("The file was saved!");
-		}
-	}); */
-
-	//console.log(req.swagger.params);
-	console.log(req.body);
-
-	/*var fileupload = true;
-	fs.writeFile(req.app.get('uploadPath') + file.originalname, file.buffer,  "binary", function(err){
-
-		if(err){
-			console.log("ERRO " + err);
-		}else{
-			console.log("SUCESSO!");
-			fileupload = true;
-		}
-	});*/
-
-  // repetitive but...
-  // upload_file({ dest: './uploads/images/'});
-
-  //res.json(data);
-	/*uploadImg(req, res, function (err) {
-		if (err) {
-			throw err
-		}
-		console.log("FILE")
-		console.log(req.file);
-		console.log(req.files);
-		var oldpath = req.file.path;
-		var newpath = __dirname + '/public/uploads/' + req.file.originalname;
-		fs.rename(oldpath, newpath, function (err){
-			if (err) throw err;
-			res.write('File uploaded and moved!');
-			res.end();
-		});
-	})*/
-	console.log("FIM!");
 	res.json({success: true, description: ""+data});
 }
 module.exports.addGame = function(req, res) {
-	console.log("ADD GAME");
-	console.log(req.body);
-
 	var card_image = req.swagger.params.card_image.value;
 	var logo = req.swagger.params.logo.value;
 
@@ -107,8 +57,6 @@ module.exports.addGame = function(req, res) {
 		card_image: "GAME_BG_"+uniqid()+"."+type_card_image[type_card_image.length-1],
 		logo: "GAME_LOGO_"+uniqid()+"."+type_logo[type_logo.length-1]
 	});
-	console.log("GAME");
-	console.log(game);
 
 	fs.writeFile(req.app.get('uploadPath') + game.card_image, card_image.buffer,  "binary", function(err){
 
@@ -164,8 +112,7 @@ module.exports.updateGame = function(req, res) {
 					}
 				}
 			}
-			
-			
+
 			if(upload1){
 				fs.writeFile(req.app.get('uploadPath') + game.card_image, card_image.buffer,  "binary", function(err){
 
@@ -195,7 +142,7 @@ module.exports.updateGame = function(req, res) {
 			game.max_players= req.body.max_players;
 			game.color= req.body.color;
 			game.category = req.body.category_id;
-			
+
 			game.save();
 
 			res.json({success : true, description:"Dados editados com sucesso."});

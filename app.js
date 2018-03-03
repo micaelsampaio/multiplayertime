@@ -2,6 +2,7 @@
 
 var SwaggerExpress = require('swagger-express-mw');
 var express = require('express')
+var colors = require('colors/safe')
 var app = express();
 var express_session = require('express-session');
 var mongoose = require('mongoose');
@@ -75,8 +76,6 @@ SwaggerExpress.create(config, function(err, swaggerExpress) {
 	}); 
 
 	app.get('/', function(req, res){
-		console.log("INDEX ");
-		console.log(req.sessionID + " " + req.session.login);
 		res.sendFile(__dirname + '/views/index.html');
 	});
 	app.get('/u/:id', function(req, res){
@@ -102,7 +101,6 @@ SwaggerExpress.create(config, function(err, swaggerExpress) {
 	});
 
 	app.get('/games', function(req, res){
-		console.log("/GAMES ");
 		res.sendFile(__dirname + '/views/games.html');
 	});
 	
@@ -117,36 +115,10 @@ SwaggerExpress.create(config, function(err, swaggerExpress) {
 		res.sendFile(__dirname + '/views/register.html');
 	});
 	
-
 	app.get('/origin', function(req, res){
-		var origin = req.headers['Origin'];
-		console.log(req.headers);
 		res.send(req.headers);
 	});
-	app.get('/teste', function(req, res){
-		console.log("REQ");
-		console.log(req.session);
-
-		var sess = req.session;
-		if(sess.login) {
-			res.send('login:  ' + sess.login + " admin " + sess.isAdmin);
-		}else{
-			res.send('do a fucking login');
-		}
-	});
-
-	app.get('/teste2', function(req, res){
-		console.log("REQ");
-		console.log(req.session);
-
-		var sess = req.session;
-		if(sess.login) {
-			res.send('login:  ' + sess.login + " admin " + sess.isAdmin);
-		}else{
-			res.send('do a fucking login');
-		}
-	});
-
+	
 	app.get('/404', function(req, res) {
 		notfound(res);
 	});
@@ -167,17 +139,14 @@ SwaggerExpress.create(config, function(err, swaggerExpress) {
 	});
 
 	app.get('/game/:id', function(req, res) {
-		console.log("GAME ID " + req.params.id)
 		res.sendFile(__dirname + '/games/'+req.params.id+'.html');
 	});
 
 	app.get('/game/:id/:room', function(req, res) {
-		console.log("GAME ID " + req.params.id)
 		res.sendFile(__dirname + '/games/'+req.params.id+'.html');
 	});
 
 	app.get('/category/:id', function(req, res) {
-		console.log("/CATEGORY ID " + req.params.id);
 		Category.findOne({_id: req.params.id}, function(err, category) {
 			if (!err){
 				if(category!= null){
@@ -199,12 +168,7 @@ SwaggerExpress.create(config, function(err, swaggerExpress) {
 	function notfound(res){
 		res.sendFile(__dirname + '/views/error404.html');
 	}
-
-	/*app.use(function(req, res, next) {
-		_.assign(req.body, req.files);
-		next();
-	});
-	*/
+	
 	swaggerExpress.register(app);
 
 	app.get('*', function(req, res) {
@@ -213,6 +177,14 @@ SwaggerExpress.create(config, function(err, swaggerExpress) {
 	
 	server.listen(2000);
 
-	console.log("Magic happens at http://localhost:2000");
+	console.log("\n\n")
+	console.log(colors.cyan(" __  __ _   _ _  _____ ___ ___ _      ___   _____ ___   ")+colors.magenta("_____ ___ __  __ ___ "));
+	console.log(colors.cyan("|  \\/  | | | | ||_   _|_ _| _ \\ |    /_\\ \\ / / __| _ \\ ")+colors.magenta("|_   _|_ _|  \\/  | __|"));
+	console.log(colors.cyan("| |\\/| | |_| | |__| |  | ||  _/ |__ / _ \\ V /| _||   / ")+colors.magenta("  | |  | || |\\/| | _| "));
+	console.log(colors.cyan("|_|  |_|\\___/|____|_| |___|_| |____/_/ \\_\\_| |___|_|_\\ ")+colors.magenta("  |_| |___|_|  |_|___|"));
+
+	console.log("")
+	console.log(colors.cyan("\n\nWEBSITE Magic happens at --> ")+colors.magenta.underline("http://localhost:2000"));
+	console.log("\n\n")
 });
 

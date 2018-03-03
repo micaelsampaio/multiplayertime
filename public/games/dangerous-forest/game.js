@@ -168,7 +168,6 @@ function erro2(){
 }
 
 function lobby(){
-	//console.log(client.getPlayers());
 	game.drawImage(game.getImage("bgMenu"), -game.offSetX, 0, game.width + 20, game.height);
 	var y = 70 + 50;
 	var x = 20;
@@ -341,7 +340,6 @@ function jump(){
 
 ////SERVER RESPONSES
 function onStartGame(data){
-	console.log(data);
 	clientTime = 0;
 	players = [];
 	blocks = [];
@@ -405,7 +403,6 @@ function onDisconnect(data){
 function onEndGame(data){
 	state  = STATE.ENDGAME;
 	readyPlayers = [undefined, undefined];
-	console.log(data);
 	for(var i = 0; i < data.info.length;i++){
 		players[i].points = data.info[i].points;
 		players[i].coin = data.info[i].coin;
@@ -413,25 +410,19 @@ function onEndGame(data){
 }
 
 function onReady(data){
-	console.log("READY " + data);
 
 	if(state == STATE.LOAD){
 		state = STATE.GAME;
-		console.log("START GAME  SSSSSSSSSSSSSSSSSs")
 	}
 	if(state == STATE.ENDGAME){
 		var index = getPlayerId(data.id);
 		if(index!=-1){
 			readyPlayers[index] = data.state;
 		}
-
-		console.log("READY " + readyPlayers);
 	}
 }
 
 function onNewBlock(data){
-	console.log(data);
-
 	var img = game.getImage("rock");
 
 	if(data.type == TYPE.rock)

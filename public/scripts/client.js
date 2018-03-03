@@ -1,6 +1,6 @@
 
 function getServer(game){
-	var url  = "http://172.20.128.99";
+	var url  = "http://127.0.0.1";
 	//var url  = "http://172.20.128.169";
 	if(game == "sueca"){
 		return url + ":8000";
@@ -26,7 +26,7 @@ function getServer(game){
 }
 
 function client(url, parent, actions){
-	var socket = io(url);
+	var socket = io(url, {transports: ['websocket']});
 	var player = null;
 	var players = [];
 	var room = null;

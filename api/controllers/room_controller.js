@@ -23,7 +23,6 @@ function addInvite(userid, room,game, u, token){
 	User.findOne({username: u}, function(err, user){
 		if(!err && user){
 			Invite.findOne({you : user.id, user: userid, room: room}, function (err, inv) {
-				console.log("y : " + u);
 				if(!err && inv!=null){
 					inv.accepted = undefined;
 					inv.save();
@@ -88,11 +87,10 @@ module.exports.denyInvite = function(req, res) {
 module.exports.getInvites = function(req, res) {
 	
 	var userid = req.session.decoded.userid.toLowerCase();
-	console.log("INVITES "+ userid);
+
 	var result = [];
 
 	Invite.find({you: userid}).populate('game').populate("user").exec( function(err, invites) {
-		console.log(invites);
 		if(!err && invites != null){
 			for(var i = 0; i < invites.length; i++){
 				result.push(inviteToResult(invites[i])); 

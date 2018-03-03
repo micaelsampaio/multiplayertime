@@ -152,7 +152,6 @@ function erro2(){
 }
 
 function lobby(){
-	//console.log(client.getPlayers());
 	game.drawImage(game.getImage("bg"), -game.offSetX, 0, game.width + 20, game.height);
 	var y = 70 + 50;
 	var x = 20;
@@ -315,7 +314,6 @@ function jump(){
 
 ////SERVER RESPONSES
 function onStartGame(data){
-	console.log(data);
 	clientTime = 0;
 	players = [];
 	blocks = [];
@@ -362,7 +360,6 @@ function onEndGame(data){
 }
 
 function onReady(data){
-	console.log("READY " + data);
 
 	if(state == STATE.LOAD){
 		state = STATE.GAME;
@@ -372,8 +369,6 @@ function onReady(data){
 		if(index!=-1){
 			readyPlayers[index] = data.state;
 		}
-
-		console.log("READY " + readyPlayers);
 	}
 }
 

@@ -184,7 +184,6 @@ function doubleLoginError(){
 }
 
 function lobby(){
-	//console.log(client.getPlayers());
 	game.drawImage(game.getImage("bgMenu"),0,0, game.width, game.height);
 
 	var y = 70 + 50;
