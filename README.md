@@ -11,6 +11,16 @@ The only experience I had with game develop it was in Flash and Unity 3D but I l
 So, to build this platform I used Node.js, Swagger, MongoDB and Socket.io, and for front end I used AngularJs, I had no experience with this stack of development and tools and if I started today it would be different,
 This project is a website but it will give you some libraries if you want to make your own games, they are simple and are simple to use, below a Talk more about them.
 
+<p align="center">
+  <span>
+    <img
+      alt="Multiplayer Time"
+      src="https://i.imgur.com/egy7n7k.png"
+      width="300"
+    />
+</span>
+</p>
+
 
 ### Project directory layout
 
