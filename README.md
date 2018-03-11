@@ -21,6 +21,8 @@ This project is a website but it will give you some libraries if you want to mak
 </span>
 </p>
 
+[![Play Video](https://img.youtube.com/vi/IR_iZrgot78/0.jpg)](https://youtu.be/IR_iZrgot78)
+
 
 ### Project directory layout
 
